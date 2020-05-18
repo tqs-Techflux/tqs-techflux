@@ -5,27 +5,26 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import tqs.marketplace.entities.Product;
+import tqs.marketplace.entities.User;
 
 @Service
-public class ProductService {
+public class UserService {
     private String dbServerUrl = "";
 
-    public ResponseEntity<Product> search(){
+    public ResponseEntity<User> search(){
         RestTemplate template = new RestTemplate();
-        ResponseEntity<Product> response = template.exchange(this.dbServerUrl, HttpMethod.GET, null, new ParameterizedTypeReference<Product>() {
-        });
+        ResponseEntity<User> response = template.exchange(this.dbServerUrl, HttpMethod.GET, null, new ParameterizedTypeReference<User>() {});
         System.out.println(response.getBody());
         return response;
     }
 
-    public ResponseEntity<Product> search(String name){
+    public ResponseEntity<User> search(int id){
         // query db server with productId
 
-        dbServerUrl = "name";
+        dbServerUrl = "id";
 
         RestTemplate template = new RestTemplate();
-        ResponseEntity<Product> response = template.exchange(this.dbServerUrl, HttpMethod.GET, null, new ParameterizedTypeReference<Product>() {});
+        ResponseEntity<User> response = template.exchange(this.dbServerUrl, HttpMethod.GET, null, new ParameterizedTypeReference<User>() {});
         System.out.println(response.getBody());
         return response;
     }

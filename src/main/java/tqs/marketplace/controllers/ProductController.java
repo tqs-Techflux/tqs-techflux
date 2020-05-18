@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tqs.marketplace.entities.Product;
+import tqs.marketplace.services.ProductService;
 
 @RestController
 @RequestMapping("/products")
@@ -21,9 +22,9 @@ public class ProductController {
         return productService.search();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Product> search(@PathVariable("id") int id){
-        return productService.search(id);
+    @GetMapping("/{productName}")
+    public ResponseEntity<Product> search(@PathVariable("productName") String productName){
+        return productService.search(productName);
     }
 
 }
