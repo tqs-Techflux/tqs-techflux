@@ -1,28 +1,33 @@
 package tqs.marketplace.entities;
 
 import java.util.Arrays;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 public class Product {
-    private static int counter = 0;
-    private final int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private String name;
     private String description;
     private double price;
     private Object picture;
-    private Object[] photos;
-    private String[] tags;
+    //private Object[] photos;
+    //private String[] tags;
 
+    protected Product(){}
 
     public Product(String name, String description, double price){
-        this.id = counter;
         this.name = name;
         this.description = description;
         this.price = price;
-        counter++;
 
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -58,8 +63,8 @@ public class Product {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", picture=" + picture +
-                ", photos=" + Arrays.toString(photos) +
-                ", tags=" + Arrays.toString(tags) +
+        //        ", photos=" + Arrays.toString(photos) +
+         //       ", tags=" + Arrays.toString(tags) +
                 '}';
     }
 }

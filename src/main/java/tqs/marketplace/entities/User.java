@@ -1,32 +1,30 @@
 package tqs.marketplace.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class User {
-    private static int counter = 0;
-    private final int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private String firstName;
     private String lastName;
     private String email;
     private String contact;
 
-    public User(){
-        this.id = counter;
-        this.firstName = "";
-        this.lastName = "";
-        this.email = "";
-        this.contact = "";
-        counter++;
-    }
+    protected User(){}
 
     public User(String firstName, String lastName, String email, String contact){
-        this.id = counter;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.contact = contact;
-        counter++;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

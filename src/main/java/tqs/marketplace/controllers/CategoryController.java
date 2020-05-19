@@ -17,8 +17,9 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/{categoryId}")
-    public ResponseEntity<Category> search(@PathVariable("categoryId") int categoryId) {
+    @GetMapping("/{categoryName}")
+    public ResponseEntity<Category> search(@PathVariable("categoryName") String categoryName) {
+        int categoryId = new Category(categoryName).getCategoryID();
         return categoryService.search(categoryId);
     }
 
