@@ -14,7 +14,7 @@ public class Product {
     private String name;
     private String description;
     private double price;
-    private Object picture;
+    private String picture;
     //private Object[] photos;
     //private String[] tags;
 
@@ -47,11 +47,11 @@ public class Product {
         this.description = description;
     }
 
-    public Object getPicture() {
+    public String getPicture() {
         return picture;
     }
 
-    public void setPicture(Object picture) {
+    public void setPicture(String picture) {
         this.picture = picture;
     }
 
@@ -63,7 +63,7 @@ public class Product {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", picture=" + picture +
-        //        ", photos=" + Arrays.toString(photos) +
+         //       ", photos=" + Arrays.toString(photos) +
          //       ", tags=" + Arrays.toString(tags) +
                 '}';
     }

@@ -1,14 +1,15 @@
 package tqs.marketplace.repositories;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 import tqs.marketplace.entities.User;
 
 import java.util.List;
 
+@Repository
 public interface UserRepository extends CrudRepository<User, Long> {
-    List<User> findByFirstName(String firstName);
-    List<User> findByLastName(String LastName);
+    List<User> findByFirstNameContaining(String partialName);
+    List<User> findByLastNameContaining(String partialName);
     User findById(long id);
-
 
 }

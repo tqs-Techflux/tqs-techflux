@@ -1,26 +1,25 @@
 package tqs.marketplace.entities;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 public class Category {
-
-    private int categoryID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long categoryId;
     private String categoryName;
-    private static List<String> categories = new ArrayList<String>(
-            Arrays.asList("components",
-                          "computers",
-                          "mobile devices"));
 
+    protected Category(){ }
 
     public Category(String categoryName){
         this.categoryName = categoryName;
-        this.categoryID = categories.indexOf(this.categoryName);
     }
 
-    public int getCategoryID() {
-        return categoryID;
+    public long getCategoryId() {
+        return categoryId;
     }
 
     public String getCategoryName() {
@@ -34,7 +33,7 @@ public class Category {
     @Override
     public String toString() {
         return "Category{" +
-                "categoryID=" + categoryID +
+                "categoryID=" + categoryId +
                 ", categoryName='" + categoryName + '\'' +
                 '}';
     }
