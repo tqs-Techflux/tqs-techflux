@@ -17,14 +17,40 @@ public class ProductService {
 
     public boolean saveProducts() {
         // save a few products
-        this.repository.save(new Product("8GB RAM", "2x4 GB RAM slots", 130.00));
-        this.repository.save(new Product("1TB SSD", "Solid state drive of 1TB", 400.00));
+        this.repository.save(new Product(
+                "8GB RAM for Mac",
+                "2x4 GB RAM slots for Mac",
+                90.00,
+                "../../resources/pictures/ram_2x4"));
+        this.repository.save(new Product(
+                "4GB RAM Kingston",
+                "2x2 GB RAM slots Kingston",
+                50.00,
+                "../../resources/pictures/ram_2x2"));
+        this.repository.save(new Product(
+                "1TB SSD WD SATA",
+                "Solid state drive of 1TB Western Digital SATA",
+                220.00,
+                "../../../resources/pictures/ssd_1tb"));
+        this.repository.save(new Product(
+                "512GB SSD Kingston",
+                "Solid state drive of 512GB Kingston",
+                120.00,
+                "../../../resources/pictures/ssd_512gb"));
         return true;
     }
 
+    // without picturePath
     public boolean saveProduct(String name, String description, double price) {
         // save a few products
         this.repository.save(new Product(name, description, price));
+        return true;
+    }
+
+    // with picturePath
+    public boolean saveProduct(String name, String description, double price, String picturePath) {
+        // save a few products
+        this.repository.save(new Product(name, description, price, picturePath));
         return true;
     }
 

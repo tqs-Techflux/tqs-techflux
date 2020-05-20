@@ -25,7 +25,7 @@ public class ProductController {
         return new ResponseEntity<List<Product>>(productService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{productName}")
+    @GetMapping("/q={productName}")
     public ResponseEntity<List<Product>> search(@PathVariable("productName") String productName){
         return new ResponseEntity<List<Product>>(productService.findByName(productName), HttpStatus.OK);
     }

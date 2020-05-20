@@ -8,8 +8,8 @@ import tqs.marketplace.repositories.CategoryRepository;
 public class CategoryService {
     private CategoryRepository repository;
 
-    public CategoryService(CategoryRepository categoryRepository){
-        this.repository = categoryRepository;
+    public CategoryService(CategoryRepository repository){
+        this.repository = repository;
         this.saveCategories();
     }
 
