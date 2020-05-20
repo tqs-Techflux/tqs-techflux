@@ -1,6 +1,12 @@
 package tqs.marketplace.entities;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.zip.DataFormatException;
+import java.util.zip.Deflater;
+import java.util.zip.Inflater;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +21,7 @@ public class Product {
     private String description;
     private double price;
     private String picturePath;
+    private byte[] picBytes;
     //private Object[] photos;
     //private String[] tags;
 
@@ -33,6 +40,7 @@ public class Product {
         this.description = description;
         this.price = price;
         this.picturePath = picturePath;
+        this.picBytes = new byte[ (int) new File(this.picturePath).length() ];
     }
 
     public long getId() {
@@ -59,9 +67,18 @@ public class Product {
         return picturePath;
     }
 
-    public void setPicturePathicture(String picturePath) {
+    public void setPicturePath(String picturePath) {
         this.picturePath = picturePath;
     }
+
+    public byte[] getPicBytes() {
+        return picBytes;
+    }
+
+    public void setPicBytes(byte[] picBytes) {
+        this.picBytes = picBytes;
+    }
+
 
     @Override
     public String toString() {
