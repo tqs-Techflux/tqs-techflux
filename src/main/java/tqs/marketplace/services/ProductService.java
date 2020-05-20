@@ -21,20 +21,20 @@ public class ProductService {
                 "8GB RAM for Mac",
                 "2x4 GB RAM slots for Mac",
                 90.00,
-                "../../resources/pictures/ram_2x4"));
+                "../../resources/pictures/ram_2x4.jpg"));
         this.repository.save(new Product(
                 "4GB RAM Kingston",
-                "2x2 GB RAM slots Kingston",
+                "2x2 GB RAM slots Kingston.jpg",
                 50.00,
-                "../../resources/pictures/ram_2x2"));
+                "../../resources/pictures/ram_2x2.jpg"));
         this.repository.save(new Product(
                 "1TB SSD WD SATA",
                 "Solid state drive of 1TB Western Digital SATA",
                 220.00,
-                "../../../resources/pictures/ssd_1tb"));
+                "../../../resources/pictures/ssd_1tb.jpg"));
         this.repository.save(new Product(
                 "512GB SSD Kingston",
-                "Solid state drive of 512GB Kingston",
+                "Solid state drive of 512GB Kingston.jpg",
                 120.00,
                 "../../../resources/pictures/ssd_512gb"));
         return true;

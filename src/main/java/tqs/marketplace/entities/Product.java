@@ -55,11 +55,11 @@ public class Product {
         this.description = description;
     }
 
-    public String getPicture() {
+    public String getPicturePath() {
         return picturePath;
     }
 
-    public void setPicture(String picturePath) {
+    public void setPicturePathicture(String picturePath) {
         this.picturePath = picturePath;
     }
 
