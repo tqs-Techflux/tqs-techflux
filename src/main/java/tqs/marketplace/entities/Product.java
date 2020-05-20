@@ -7,10 +7,7 @@ import java.util.Arrays;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Product {
@@ -21,6 +18,7 @@ public class Product {
     private String description;
     private double price;
     private String picturePath;
+    @Lob
     private byte[] picBytes;
     //private Object[] photos;
     //private String[] tags;
