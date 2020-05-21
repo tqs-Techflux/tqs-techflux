@@ -28,7 +28,7 @@ public class CategoryService {
     }
 
     public Category getCategory(String categoryName){
-        Category category = repository.findByName(categoryName);
+        Category category = repository.findByCategoryName(categoryName);
         return category;
     }
 

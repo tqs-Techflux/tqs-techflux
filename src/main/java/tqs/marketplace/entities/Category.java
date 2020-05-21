@@ -1,15 +1,13 @@
 package tqs.marketplace.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long categoryId;
+    @Column(name="name")
     private String categoryName;
 
     protected Category(){ }

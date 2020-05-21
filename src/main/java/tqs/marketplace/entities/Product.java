@@ -1,12 +1,5 @@
 package tqs.marketplace.entities;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.zip.DataFormatException;
-import java.util.zip.Deflater;
-import java.util.zip.Inflater;
 import javax.persistence.*;
 
 @Entity
@@ -17,9 +10,7 @@ public class Product {
     private String name;
     private String description;
     private double price;
-    private String picturePath;
-    @Lob
-    private byte[] picBytes;
+    private String picture;
     //private Object[] photos;
     //private String[] tags;
 
@@ -33,12 +24,11 @@ public class Product {
     }
 
     // with picturePath
-    public Product(String name, String description, double price, String picturePath){
+    public Product(String name, String description, double price, String picture){
         this.name = name;
         this.description = description;
         this.price = price;
-        this.picturePath = picturePath;
-        this.picBytes = new byte[ (int) new File(this.picturePath).length() ];
+        this.picture = picture;
     }
 
     public long getId() {
@@ -61,22 +51,22 @@ public class Product {
         this.description = description;
     }
 
-    public String getPicturePath() {
-        return picturePath;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setPicturePath(String picturePath) {
-        this.picturePath = picturePath;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
-    public byte[] getPicBytes() {
-        return picBytes;
+    public double getPrice() {
+
+        return price;
     }
 
-    public void setPicBytes(byte[] picBytes) {
-        this.picBytes = picBytes;
+    public void setPrice(double price) {
+        this.price = price;
     }
-
 
     @Override
     public String toString() {
@@ -85,7 +75,7 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
-                ", picturePath=" + picturePath +
+                ", picture=" + picture +
          //       ", photos=" + Arrays.toString(photos) +
          //       ", tags=" + Arrays.toString(tags) +
                 '}';
