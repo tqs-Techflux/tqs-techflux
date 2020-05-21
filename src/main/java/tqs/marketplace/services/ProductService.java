@@ -32,12 +32,12 @@ public class ProductService {
                 "1TB SSD WD SATA",
                 "Solid state drive of 1TB Western Digital SATA",
                 220.00,
-                "https://i.imgur.com/QI7ahI5.jpg"));
+                "https://i.imgur.com/gU1UV63.jpg"));
         this.repository.save(new Product(
                 "512GB SSD Kingston",
                 "Solid state drive of 512GB Kingston.jpg",
                 129.99,
-                "https://i.imgur.com/QI7ahI5.jpg"));
+                "https://i.imgur.com/gU1UV63.jpg"));
         return true;
     }
 
