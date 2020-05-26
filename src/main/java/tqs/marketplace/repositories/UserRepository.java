@@ -10,6 +10,7 @@ import java.util.List;
 public interface UserRepository extends CrudRepository<User, Long> {
     List<User> findByFirstNameContaining(String partialName);
     List<User> findByLastNameContaining(String partialName);
+    User findByEmail(String email);
     User findById(long id);
 
 }

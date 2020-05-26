@@ -48,6 +48,12 @@ public class UserService {
         return retList;
     }
 
+    public User findByEmail(String email){
+        User user = repository.findByEmail(email);
+        System.out.println(user.toString());
+        return user;
+    }
+
     public User findById(long id){
         // fetch an individual user by ID
         User user = repository.findById(id);
