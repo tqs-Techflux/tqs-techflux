@@ -24,6 +24,9 @@ public class User implements UserDetails {
 
     //@NotEmpty
     private String password;
+
+
+
     @ElementCollection(fetch = FetchType.EAGER)
     //@Builder.Default
     private List<String> roles = new ArrayList<>();
@@ -65,6 +68,10 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public List<String> getRoles() {
+        return roles;
     }
 
     public long getId() {
