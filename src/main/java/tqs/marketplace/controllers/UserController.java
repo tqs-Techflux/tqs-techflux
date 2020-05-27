@@ -2,10 +2,7 @@ package tqs.marketplace.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tqs.marketplace.entities.User;
 import tqs.marketplace.services.UserService;
 
@@ -25,7 +22,7 @@ public class UserController {
         return new ResponseEntity<List<User>>(userService.findByName(userPartialName), HttpStatus.OK);
     }
 
-    @GetMapping("/id={userId}")
+    @PostMapping("/id={userId}")
     public ResponseEntity<User> search(@PathVariable("userId") int userId) {
         return new ResponseEntity<User>(userService.findById(userId), HttpStatus.OK);
     }
