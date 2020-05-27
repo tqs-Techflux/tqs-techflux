@@ -1,6 +1,7 @@
 package tqs.marketplace.services;
 
-
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import tqs.marketplace.entities.User;
 import tqs.marketplace.repositories.UserRepository;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     private UserRepository repository;
 
     public UserService(UserRepository repository){
@@ -48,7 +49,7 @@ public class UserService {
         return retList;
     }
 
-    public User findByEmail(String email){
+    public UserDetails loadUserByUsername(String email){
         User user = repository.findByEmail(email);
         System.out.println(user.toString());
         return user;
