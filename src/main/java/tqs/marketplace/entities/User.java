@@ -1,5 +1,6 @@
 package tqs.marketplace.entities;
 
+import net.shibboleth.utilities.java.support.annotation.constraint.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,10 +23,8 @@ public class User implements UserDetails {
     private String email;
     private String contact;
 
-    //@NotEmpty
+    @NotEmpty
     private String password;
-
-
 
     @ElementCollection(fetch = FetchType.EAGER)
     //@Builder.Default
@@ -34,11 +33,17 @@ public class User implements UserDetails {
 
     protected User(){}
 
-    public User(String firstName, String lastName, String email, String contact){
+    public User(String email, String password){
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String firstName, String lastName, String email, String contact, String password){
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.contact = contact;
+        this.password = password;
     }
 
     @Override
@@ -118,6 +123,7 @@ public class User implements UserDetails {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", contact='" + contact + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }
