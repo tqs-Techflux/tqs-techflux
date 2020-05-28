@@ -23,7 +23,7 @@ public class UserController {
         return new ResponseEntity<List<User>>(userService.findByName(userPartialName), HttpStatus.OK);
     }
 
-    @PostMapping("/id={userId}")
+    @GetMapping("/id={userId}")
     public ResponseEntity<User> search(@PathVariable("userId") int userId) {
         return new ResponseEntity<User>(userService.findById(userId), HttpStatus.OK);
     }

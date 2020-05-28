@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import tqs.marketplace.auth.AuthenticationRequest;
 import tqs.marketplace.auth.AuthenticationResponse;
 import tqs.marketplace.auth.JwtTokenProvider;
+import tqs.marketplace.entities.User;
 import tqs.marketplace.services.UserService;
 
 @CrossOrigin(origins= "http://localhost:4200")
@@ -38,7 +39,8 @@ public class AuthController {
         }
         final UserDetails userDetails = userService
                 .loadUserByUsername(authenticationRequest.getUsername());
+        final User user = userService.loadUserByEmail(authenticationRequest.getUsername());
         final String jwt = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+        return ResponseEntity.ok(new AuthenticationResponse(jwt,user.getId()));
     }
 }
