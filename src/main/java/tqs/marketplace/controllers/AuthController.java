@@ -12,7 +12,7 @@ import tqs.marketplace.auth.AuthenticationResponse;
 import tqs.marketplace.auth.JwtTokenProvider;
 import tqs.marketplace.services.UserService;
 
-
+@CrossOrigin(origins= "http://localhost:4200")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {

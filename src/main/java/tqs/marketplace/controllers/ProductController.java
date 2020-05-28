@@ -1,22 +1,18 @@
 package tqs.marketplace.controllers;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tqs.marketplace.entities.Product;
 import tqs.marketplace.services.ProductService;
 
-import javax.activation.FileTypeMap;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
 
+@CrossOrigin(origins= "http://localhost:4200")
 @RestController
 @RequestMapping("/products")
-@CrossOrigin("http://localhost:4200")
 public class ProductController {
+
     private ProductService productService;
 
     public ProductController(ProductService productService){
