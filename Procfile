@@ -1,2 +1,1 @@
-web: mvn package
-web: java -jar target/marketplace-1.0.jar
+web: java -jar target/marketplace-0.0.1-SNAPSHOT.jar
