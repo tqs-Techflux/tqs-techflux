@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import tqs.marketplace.entities.Category;
 import tqs.marketplace.services.CategoryService;
 
+import java.util.List;
+
 @CrossOrigin(origins= "http://localhost:4200")
 @RestController
 @RequestMapping("/categories")
@@ -14,6 +16,11 @@ public class CategoryController {
 
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Category>> all(){
+        return new ResponseEntity<List<Category>>(categoryService.getAll(),HttpStatus.OK);
     }
 
     @GetMapping("/{categoryName}")
