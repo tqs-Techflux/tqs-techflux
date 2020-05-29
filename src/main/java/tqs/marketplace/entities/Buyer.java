@@ -3,8 +3,13 @@ package tqs.marketplace.entities;
 public class Buyer extends User {
     private String type;
 
-    public Buyer(String firstName, String lastName, String email, String contact){
-        super(firstName, lastName, email, contact);
+    public Buyer(String email, String password){
+        super(email, password);
+        this.type = "Buyer";
+    }
+
+    public Buyer(String firstName, String lastName, String email, String contact, String password){
+        super(firstName, lastName, email, contact, password);
         this.type = "Buyer";
     }
 

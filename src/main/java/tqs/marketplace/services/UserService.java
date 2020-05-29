@@ -1,6 +1,8 @@
 package tqs.marketplace.services;
 
-
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import tqs.marketplace.entities.User;
 import tqs.marketplace.repositories.UserRepository;
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     private UserRepository repository;
 
     public UserService(UserRepository repository){
@@ -19,14 +21,29 @@ public class UserService {
 
     public boolean saveUsers() {
         // save a few users
-        this.repository.save(new User("João", "Azambuja", "joaoaz@gmail.com", "969999999"));
-        this.repository.save(new User("Vicente", "Correia", "vicorreia@gmail.com", "966666666"));
+        this.repository.save(new User(
+                "João",
+                "Azambuja",
+                "joaoaz@gmail.com",
+                "969999999",
+                "abcdefgh"));
+        this.repository.save(new User(
+                "Vicente",
+                "Correia",
+                "vicorreia@gmail.com",
+                "966666666",
+                "12345678"));
         return true;
     }
 
-    public boolean saveUser(String fName, String lName, String email, String contact) {
-        // save a few products
-        this.repository.save(new User(fName, lName, email, contact));
+
+    public boolean saveUser(String fName, String lName, String email, String contact, String password) {
+        this.repository.save(new User(fName, lName, email, contact, password));
+        return true;
+    }
+
+    public boolean saveUser(String email, String password) {
+        this.repository.save(new User(email, password));
         return true;
     }
 
@@ -46,6 +63,20 @@ public class UserService {
         }
 
         return retList;
+    }
+
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = repository.findByEmail(email);
+
+        System.out.println(user.toString());
+        return user;
+    }
+
+    public User loadUserByEmail(String email) throws UsernameNotFoundException {
+        User user = repository.findByEmail(email);
+
+        System.out.println(user.toString());
+        return user;
     }
 
     public User findById(long id){
