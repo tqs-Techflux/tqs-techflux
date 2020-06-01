@@ -24,7 +24,7 @@ public class UserController {
         return new ResponseEntity<List<User>>(userService.findByName(userPartialName), HttpStatus.OK);
     }
 
-    @GetMapping("/id={userId}")
+    @GetMapping("/id/{userId}")
     public ResponseEntity<User> searchById(@PathVariable("userId") int userId) {
         return new ResponseEntity<User>(userService.findById(userId), HttpStatus.OK);
     }
@@ -37,5 +37,6 @@ public class UserController {
         String email = provider.extractUsername(tkn);
         return new ResponseEntity<User>(userService.loadUserByEmail(email),HttpStatus.OK);
     }
+
 
 }

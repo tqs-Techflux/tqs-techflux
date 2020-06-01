@@ -41,17 +41,17 @@ public class ProductService {
         return true;
     }
 
-    // without picturePath
-    public boolean saveProduct(String name, String description, double price) {
-        // save a few products
-        this.repository.save(new Product(name, description, price));
+    public boolean saveProduct(String name, String description, double price, String picturePath) {
+        this.repository.save(new Product(name, description, price, picturePath));
         return true;
     }
 
-    // with picturePath
-    public boolean saveProduct(String name, String description, double price, String picturePath) {
-        // save a few products
-        this.repository.save(new Product(name, description, price, picturePath));
+    public boolean updateProduct(Product p, String name, String description, double price, String picturePath) {
+        p.setName(name);
+        p.setDescription(description);
+        p.setPrice(price);
+        p.setPicture(picturePath);
+        this.repository.save(p);
         return true;
     }
 

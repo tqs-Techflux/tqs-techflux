@@ -33,8 +33,13 @@ public class CategoryService {
         return (List<Category>) repository.findAll();
     }
 
-    public Category getCategory(String categoryName){
-        Category category = repository.findByCategoryName(categoryName);
+    public Category getCategoryByName(String categoryName){
+        Category category = repository.findByName(categoryName);
+        return category;
+    }
+
+    public Category getCategoryById(int categoryId){
+        Category category = repository.findById(categoryId);
         return category;
     }
 

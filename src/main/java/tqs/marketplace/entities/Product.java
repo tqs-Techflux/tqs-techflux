@@ -11,17 +11,15 @@ public class Product {
     private String description;
     private double price;
     private String picture;
+
+    @ManyToOne
+    private User owner;
+    @ManyToOne
+    private Category category;
     //private Object[] photos;
     //private String[] tags;
 
     protected Product(){}
-
-    // without picturePath
-    public Product(String name, String description, double price){
-        this.name = name;
-        this.description = description;
-        this.price = price;
-    }
 
     // with picturePath
     public Product(String name, String description, double price, String picture){
@@ -68,6 +66,22 @@ public class Product {
         this.price = price;
     }
 
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -76,6 +90,8 @@ public class Product {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", picture=" + picture +
+                ", owner=" + owner +
+                ", category=" + category +
          //       ", photos=" + Arrays.toString(photos) +
          //       ", tags=" + Arrays.toString(tags) +
                 '}';

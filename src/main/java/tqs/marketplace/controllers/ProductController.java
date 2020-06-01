@@ -24,14 +24,35 @@ public class ProductController {
         return new ResponseEntity<List<Product>>(productService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/q={productName}")
+    @GetMapping("/query/{productName}")
     public ResponseEntity<List<Product>> searchByName(@PathVariable("productName") String productName){
         return new ResponseEntity<List<Product>>(productService.findByName(productName), HttpStatus.OK);
     }
 
-    @GetMapping("/id={productId}")
+    @GetMapping("/id/{productId}")
     public ResponseEntity<Product> searchById(@PathVariable("productId") long productId){
         return new ResponseEntity<Product>(productService.findById(productId), HttpStatus.OK);
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<Boolean> addProduct(String productName, String description, double price, String picturePath){
+        return new ResponseEntity<Boolean>(productService.saveProduct(
+                productName,
+                description,
+                price,
+                picturePath
+        ), HttpStatus.OK);
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<Boolean> updateProduct(Product p, String productName, String description, double price, String picturePath){
+        return new ResponseEntity<Boolean>(productService.updateProduct(
+                p,
+                productName,
+                description,
+                price,
+                picturePath
+        ), HttpStatus.OK);
     }
 
 }

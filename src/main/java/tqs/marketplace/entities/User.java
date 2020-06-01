@@ -1,6 +1,6 @@
 package tqs.marketplace.entities;
 
-import net.shibboleth.utilities.java.support.annotation.constraint.NotEmpty;
+//import net.shibboleth.utilities.java.support.annotation.constraint.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,7 +9,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
@@ -22,8 +21,10 @@ public class User implements UserDetails {
     private String lastName;
     private String email;
     private String contact;
+    @OneToMany
+    private List<Product> products;
 
-    @NotEmpty
+    //@NotEmpty
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)
