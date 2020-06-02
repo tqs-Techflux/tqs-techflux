@@ -1,19 +1,11 @@
 package tqs.marketplace.entities;
 
-//import net.shibboleth.utilities.java.support.annotation.constraint.NotEmpty;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import tqs.marketplace.services.CredentialService;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 @Entity
-public class User implements UserDetails {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -22,62 +14,16 @@ public class User implements UserDetails {
     private String email;
     private String contact;
 
-    //@NotEmpty
-    private String password;
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    //@Builder.Default
-    private List<String> roles = new ArrayList<>();
-
-
     protected User(){}
 
-    public User(String email, String password){
-        this.email = email;
-        this.password = password;
-    }
-
-    public User(String firstName, String lastName, String email, String contact, String password){
+    public User(String firstName, String lastName, String email, String contact){
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.contact = contact;
-        this.password = password;
+
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles.stream().map(SimpleGrantedAuthority::new).collect(toList());
-    }
-    @Override
-    public String getPassword() {
-        return this.password;
-    }
-    @Override
-    public String getUsername() {
-        return this.email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-    public List<String> getRoles() {
-        return roles;
-    }
 
     public long getId() {
         return id;
@@ -124,7 +70,6 @@ public class User implements UserDetails {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", contact='" + contact + '\'' +
-                ", password='" + password + '\'' +
                 '}';
     }
 }

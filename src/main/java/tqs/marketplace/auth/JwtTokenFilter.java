@@ -7,10 +7,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.filter.OncePerRequestFilter;
-import tqs.marketplace.entities.User;
-import tqs.marketplace.services.UserService;
+import tqs.marketplace.services.CredentialService;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -21,7 +19,7 @@ import java.io.IOException;
 @Component
 public class JwtTokenFilter extends OncePerRequestFilter {
     @Autowired
-    private UserService userService;
+    private CredentialService credentialService;
     @Autowired
     private JwtTokenProvider jwtToken;
     @Override
@@ -37,7 +35,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             username = jwtToken.extractUsername(jwt);
         }
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.userService.loadUserByUsername(username);
+            UserDetails userDetails = this.credentialService.loadUserDetailsByUsername(username);
             if (jwtToken.validateToken(jwt, userDetails)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());

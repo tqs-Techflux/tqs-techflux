@@ -69,7 +69,7 @@ public class ProductService {
         return true;
     }
 
-    // with owner and category (String)
+    // with owner and categoryName
     public boolean saveProduct(String name, String description, double price, String picturePath, long ownerId, String catName) {
         User owner = new UserService().findById(ownerId);
         Category cat = new CategoryService().findByName(catName);
@@ -77,7 +77,7 @@ public class ProductService {
         return true;
     }
 
-    // with owner and category (long)
+    // with owner and categoryId
     public boolean saveProduct(String name, String description, double price, String picturePath, long ownerId, long catId) {
         User owner = new UserService().findById(ownerId);
         Category cat = new CategoryService().findById(catId);
