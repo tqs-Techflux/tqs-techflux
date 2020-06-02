@@ -2,7 +2,6 @@ package tqs.marketplace.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import tqs.marketplace.entities.Product;
 
 import java.util.List;
@@ -11,7 +10,8 @@ import java.util.List;
 public interface ProductRepository extends CrudRepository<Product, Long> {
     List<Product> findByNameContaining(String partialName);
     Product findById(long id);
-
+    List<Product> findByCategoryName(String categoryName);
+    List<Product> findByCategoryId(long categoryId);
     //List<Product> findByTag(String tag);
 
 }

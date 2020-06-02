@@ -35,12 +35,14 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Boolean> addProduct(String productName, String description, double price, String picturePath){
+    public ResponseEntity<Boolean> addProduct(String productName, String description, double price, String picturePath, long ownerId, String catName){
         return new ResponseEntity<Boolean>(productService.saveProduct(
                 productName,
                 description,
                 price,
-                picturePath
+                picturePath,
+                ownerId,
+                catName
         ), HttpStatus.OK);
     }
 

@@ -21,12 +21,21 @@ public class Product {
 
     protected Product(){}
 
-    // with picturePath
     public Product(String name, String description, double price, String picture){
         this.name = name;
         this.description = description;
         this.price = price;
         this.picture = picture;
+    }
+
+    // with owner and category
+    public Product(String name, String description, double price, String picture, User owner, Category cat){
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.picture = picture;
+        this.owner = owner;
+        this.category = cat;
     }
 
     public long getId() {

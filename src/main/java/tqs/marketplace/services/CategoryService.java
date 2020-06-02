@@ -2,16 +2,22 @@ package tqs.marketplace.services;
 
 import org.springframework.stereotype.Service;
 import tqs.marketplace.entities.Category;
+import tqs.marketplace.entities.Product;
 import tqs.marketplace.repositories.CategoryRepository;
+import tqs.marketplace.repositories.ProductRepository;
 
 import java.util.List;
 
 @Service
 public class CategoryService {
     private CategoryRepository repository;
+    private ProductRepository productRepository;
 
-    public CategoryService(CategoryRepository repository){
+    protected CategoryService(){}
+
+    public CategoryService(CategoryRepository repository, ProductRepository productRepository){
         this.repository = repository;
+        this.productRepository = productRepository;
         this.saveCategories();
     }
 
@@ -20,7 +26,6 @@ public class CategoryService {
         this.repository.save(new Category("Components"));
         this.repository.save(new Category("Computers"));
         this.repository.save(new Category("Mobile Devices"));
-
         return true;
     }
 
@@ -29,18 +34,24 @@ public class CategoryService {
         return true;
     }
 
-    public List<Category> getAll(){
+    public List<Category> findAll(){
         return (List<Category>) repository.findAll();
     }
 
-    public Category getCategoryByName(String categoryName){
-        Category category = repository.findByName(categoryName);
-        return category;
+    public Category findByName(String categoryName){
+        return (Category) repository.findByName(categoryName);
     }
 
-    public Category getCategoryById(int categoryId){
-        Category category = repository.findById(categoryId);
-        return category;
+    public Category findById(long categoryId){
+        return (Category) repository.findById(categoryId);
+    }
+
+    public List<Product> findByProductsByCatName(String categoryName){
+        return (List<Product>) productRepository.findByCategoryName(categoryName);
+    }
+
+    public List<Product> findByProductsByCatId(long categoryId){
+        return (List<Product>) productRepository.findByCategoryId(categoryId);
     }
 
 

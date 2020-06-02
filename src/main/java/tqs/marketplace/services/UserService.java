@@ -14,6 +14,8 @@ import java.util.List;
 public class UserService implements UserDetailsService {
     private UserRepository repository;
 
+    protected UserService(){}
+
     public UserService(UserRepository repository){
         this.repository = repository;
         this.saveUsers();
@@ -47,42 +49,23 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-
     public List<User> findByName(String partialName){
         List<User> retList = new ArrayList<User>();
-
-        // fetch a list of users by partialName in firstName
-        for (User user : repository.findByFirstNameContaining(partialName)) {
-            retList.add(user);
-            System.out.println(user.toString());
-        }
-        // fetch a list of users by partialName in lastName
-        for (User user : repository.findByLastNameContaining(partialName)) {
-            retList.add(user);
-            System.out.println(user.toString());
-        }
+        retList.addAll((List<User>) repository.findByFirstNameContaining(partialName));
+        retList.addAll((List<User>) repository.findByLastNameContaining(partialName));
 
         return retList;
     }
 
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = repository.findByEmail(email);
-
-        System.out.println(user.toString());
-        return user;
+        return (User) repository.findByEmail(email);
     }
 
     public User loadUserByEmail(String email) throws UsernameNotFoundException {
-        User user = repository.findByEmail(email);
-
-        System.out.println(user.toString());
-        return user;
+        return (User) repository.findByEmail(email);
     }
 
     public User findById(long id){
-        // fetch an individual user by ID
-        User user = repository.findById(id);
-        System.out.println(user.toString());
-        return user;
+        return (User) repository.findById(id);
     }
 }

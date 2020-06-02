@@ -1,19 +1,19 @@
 package tqs.marketplace.entities;
 
 import javax.persistence.*;
-import java.lang.reflect.Type;
 
 @Entity
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
     @ManyToOne
     private User buyer;
     @ManyToOne
     private User seller;
     @OneToOne
     private Product product;
+    private String status;
 
     protected Transaction(){}
 
@@ -23,7 +23,7 @@ public class Transaction {
         this.product = product;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -53,6 +53,14 @@ public class Transaction {
 
     public void setProduct(Product productID) {
         this.product = product;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override

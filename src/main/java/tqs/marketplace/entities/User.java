@@ -21,8 +21,6 @@ public class User implements UserDetails {
     private String lastName;
     private String email;
     private String contact;
-    @OneToMany
-    private List<Product> products;
 
     //@NotEmpty
     private String password;
@@ -116,6 +114,7 @@ public class User implements UserDetails {
     public void setContact(String contact) {
         this.contact = contact;
     }
+
 
     @Override
     public String toString() {
