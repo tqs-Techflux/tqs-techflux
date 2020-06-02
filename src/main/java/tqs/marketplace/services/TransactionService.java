@@ -6,6 +6,7 @@ import tqs.marketplace.entities.Transaction;
 import tqs.marketplace.entities.User;
 import tqs.marketplace.repositories.TransactionRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,10 +42,17 @@ public class TransactionService {
     }
 
     public Transaction findByUserById(long userId, long transactionId){
-        return (Transaction) repository.findByUserById(userId, transactionId);
+        for (Transaction t : findByUser(userId)) {
+            if (t.getId() == (transactionId))
+                return t;
+        }
+        return null;
     }
 
     public List<Transaction> findByUser(long userId){
-        return (List<Transaction>) repository.findByUser(userId);
+        List<Transaction> retList = new ArrayList<Transaction>();
+        retList.addAll((List<Transaction>) repository.findByBuyer(userId));
+        retList.addAll((List<Transaction>) repository.findBySeller(userId));
+        return retList;
     }
 }

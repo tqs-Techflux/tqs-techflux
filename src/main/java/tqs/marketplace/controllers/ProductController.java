@@ -46,7 +46,7 @@ public class ProductController {
         ), HttpStatus.OK);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<Boolean> updateProduct(Product p, String productName, String description, double price, String picturePath){
         return new ResponseEntity<Boolean>(productService.updateProduct(
                 p,

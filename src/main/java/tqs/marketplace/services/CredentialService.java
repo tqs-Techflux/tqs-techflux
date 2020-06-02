@@ -39,7 +39,7 @@ public class CredentialService implements UserDetailsService {
     }
 
     public boolean updateCredential(String username, String newUsername, String newPassword){
-        Credential user = this.repository.loadCredentialsByUsername(username);
+        Credential user = this.repository.findByUsername(username);
         if (newUsername != null)
             user.setUsername(newUsername);
         if (newPassword != null)
@@ -49,11 +49,11 @@ public class CredentialService implements UserDetailsService {
     }
 
     public UserDetails loadUserDetailsByUsername(String username) throws UsernameNotFoundException {
-        return (Credential) repository.loadCredentialsByUsername(username);
+        return (Credential) repository.findByUsername(username);
     }
 
-    public Credential loadUserByUsername(String email) throws UsernameNotFoundException {
-        return (Credential) repository.loadCredentialsByUsername(email);
+    public Credential loadUserByUsername(String username) throws UsernameNotFoundException {
+        return (Credential) repository.findByUsername(username);
     }
 
 }

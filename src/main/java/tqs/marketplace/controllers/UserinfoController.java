@@ -4,10 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tqs.marketplace.entities.Credential;
 import tqs.marketplace.services.CredentialService;
 import tqs.marketplace.services.UserService;
@@ -44,7 +41,7 @@ public class UserinfoController {
         return ok(model);
     }
 
-    @PostMapping("/update/details")
+    @PutMapping("/update/details")
     public ResponseEntity<Boolean> updateUser(@AuthenticationPrincipal Credential user, String newFName, String newLName, String newEmail, String newContact){
         return new ResponseEntity<Boolean>(userService.updateUser(
                 user.getUsername(),
@@ -55,7 +52,7 @@ public class UserinfoController {
         ), HttpStatus.OK);
     }
 
-    @PostMapping("/update/password")
+    @PutMapping("/update/password")
     public ResponseEntity<Boolean> updatePassword(@AuthenticationPrincipal Credential user, String newPassword){
         return new ResponseEntity<Boolean>(credentialService.updateCredential(
                 user.getUsername(),

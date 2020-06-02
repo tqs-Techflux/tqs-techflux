@@ -1,10 +1,10 @@
 package tqs.marketplace.repositories;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 import tqs.marketplace.entities.Credential;
-import tqs.marketplace.entities.User;
 
+@Repository
 public interface CredentialRepository extends CrudRepository<Credential, Long> {
-    Credential loadCredentialsByUsername(String username);
-    boolean saveCredential(User user, String password);
+    Credential findByUsername(String username);;
 }
