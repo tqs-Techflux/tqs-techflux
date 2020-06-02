@@ -2,7 +2,6 @@ package tqs.marketplace.services;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import tqs.marketplace.entities.Credential;
 import tqs.marketplace.entities.User;
 import tqs.marketplace.repositories.UserRepository;
 
@@ -48,9 +47,8 @@ public class UserService {
         User u = new User(fName, lName, email, contact);
         this.repository.save(u);
 
-        CredentialService credentialservice = new CredentialService();
-        credentialservice.saveCredential(u.getId(), password);
-        return true;
+        boolean b = new CredentialService().saveCredential(u.getId(), password);
+        return b;
     }
 
     public boolean updateUser(String username, String fName, String lName, String email, String contact) {

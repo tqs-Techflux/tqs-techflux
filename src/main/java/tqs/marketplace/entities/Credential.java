@@ -77,6 +77,4 @@ public class Credential implements UserDetails {
         return roles;
     }
 
-
-
 }

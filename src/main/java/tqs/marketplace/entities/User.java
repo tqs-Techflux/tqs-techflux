@@ -1,7 +1,5 @@
 package tqs.marketplace.entities;
 
-import tqs.marketplace.services.CredentialService;
-
 import javax.persistence.*;
 
 @Entity
@@ -21,9 +19,7 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.contact = contact;
-
     }
-
 
     public long getId() {
         return id;
