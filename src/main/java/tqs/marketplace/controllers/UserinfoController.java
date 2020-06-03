@@ -42,9 +42,9 @@ public class UserinfoController {
     }
 
     @PutMapping("/update/details")
-    public ResponseEntity<Boolean> updateUser(@AuthenticationPrincipal Credential user, String newFName, String newLName, String newEmail, String newContact){
+    public ResponseEntity<Boolean> updateUser(@AuthenticationPrincipal String username, String newFName, String newLName, String newEmail, String newContact){
         return new ResponseEntity<Boolean>(userService.updateUser(
-                user.getUsername(),
+                username,
                 newFName,
                 newLName,
                 newEmail,
@@ -53,9 +53,9 @@ public class UserinfoController {
     }
 
     @PutMapping("/update/password")
-    public ResponseEntity<Boolean> updatePassword(@AuthenticationPrincipal Credential user, String newPassword){
+    public ResponseEntity<Boolean> updatePassword(@AuthenticationPrincipal String username, String newPassword){
         return new ResponseEntity<Boolean>(credentialService.updateCredential(
-                user.getUsername(),
+                username,
                 null,
                 newPassword
         ), HttpStatus.OK);

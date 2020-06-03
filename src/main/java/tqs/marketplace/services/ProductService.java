@@ -14,26 +14,27 @@ public class ProductService {
 
     @Autowired
     private ProductRepository repository;
-
     @Autowired
     private CategoryService cs;
-
     @Autowired
     private UserService us;
-
+    @Autowired
+    private TransactionService ts;
 
     public void saveProducts() {
         // Temporary Category creation
         this.cs.saveCategories();
         // Temporary User creation
         this.us.saveUsers();
+
         Category c1 = this.cs.findByName("Components");
         Category c2 = this.cs.findByName("Computers");
         Category c3 = this.cs.findByName("Mobile Devices");
 
         User u1 = this.us.loadUserByEmail("vicorreia@gmail.com");
-        User u2 = this.us.loadUserByEmail("joaoaz@gmail.com");
-        System.out.println(u1);
+        User u2 = this.us.loadUserByEmail("testeves@gmail.com");
+        System.out.println("(Product) u1" + u1);
+        System.out.println("(Product) u2" + u2);
 
         // save a few products
         Product p1 = new Product(
@@ -68,6 +69,7 @@ public class ProductService {
         this.repository.save(p3);
         this.repository.save(p4);
 
+        //this.ts.saveTransactions();
     }
 
     // without user and category

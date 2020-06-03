@@ -14,6 +14,8 @@ public class UserService {
 
     @Autowired
     private UserRepository repository;
+    @Autowired
+    private CredentialService cs;
 
     public void saveUsers() {
         // save a few users
@@ -35,6 +37,10 @@ public class UserService {
                 "testeves@gmail.com",
                 "928888888"
         ));
+        this.cs.saveCredential("joaoaz@gmail.com", "abdcefgh");
+        this.cs.saveCredential("vicorreia@gmail.com", "12345678");
+        this.cs.saveCredential("testeves@gmail.com", "123123123");
+
     }
 
 
@@ -42,13 +48,12 @@ public class UserService {
         User u = new User(fName, lName, email, contact);
         this.repository.save(u);
 
-        boolean b = new CredentialService().saveCredential(u.getId(), password);
+        boolean b = this.cs.saveCredential(email, password);
         return b;
     }
 
     public boolean updateUser(String username, String fName, String lName, String email, String contact) {
         User user = this.repository.findByEmail(username);
-        CredentialService credentialservice = new CredentialService();
 
         if (fName != null)
             user.setFirstName(fName);
@@ -56,7 +61,7 @@ public class UserService {
             user.setLastName(lName);
         if (email != null)
             user.setEmail(email);
-            credentialservice.updateCredential(username, email, null);
+            this.cs.updateCredential(username, email, null);
         if (contact != null)
             user.setContact(contact);
         this.repository.save(user);

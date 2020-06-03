@@ -14,15 +14,14 @@ public class CategoryService {
 
     @Autowired
     private CategoryRepository repository;
-
     @Autowired
     private ProductRepository productRepository;
 
     public boolean saveCategories() {
         // save a few categories
-        this.repository.save(new Category("Components"));
-        this.repository.save(new Category("Computers"));
-        this.repository.save(new Category("Mobile Devices"));
+        createCategory("Components");
+        createCategory("Computers");
+        createCategory("Mobile Devices");
         return true;
     }
 

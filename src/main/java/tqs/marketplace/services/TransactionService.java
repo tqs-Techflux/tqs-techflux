@@ -1,5 +1,6 @@
 package tqs.marketplace.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tqs.marketplace.entities.Product;
 import tqs.marketplace.entities.Transaction;
@@ -11,7 +12,13 @@ import java.util.List;
 
 @Service
 public class TransactionService {
+
+    @Autowired
     private TransactionRepository repository;
+    @Autowired
+    private ProductService ps;
+    @Autowired
+    private UserService us;
 
     protected TransactionService(){}
 
@@ -21,10 +28,17 @@ public class TransactionService {
     }
 
     public boolean saveTransactions(){
-        UserService userService = new UserService();
-        User buyer1 = userService.findById(1);
-        User seller1 = userService.findById(0);
-        Product p1 = new ProductService().findById(0);
+        // Temporary Product creation
+        this.ps.saveProducts();
+        // Temporary User creation
+        this.us.saveUsers();
+
+        User buyer1 = this.us.loadUserByEmail("vicorreia@gmail.com");
+        User seller1 = this.us.loadUserByEmail("joaoaz@gmail.com");
+        Product p1 = this.ps.findById(0);
+        System.out.println("(Transaction) buyer1" + buyer1);
+        System.out.println("(Transaction) seller1" + seller1);
+
 
         Transaction t1 = new Transaction(buyer1, seller1, p1);
         this.repository.save(t1);
@@ -32,10 +46,9 @@ public class TransactionService {
     }
 
     public boolean saveTransaction(long buyerId, long sellerId, long productId){
-        UserService userService = new UserService();
-        User buyer = userService.findById(buyerId);
-        User seller = userService.findById(sellerId);
-        Product product = new ProductService().findById(productId);
+        User buyer = this.us.findById(buyerId);
+        User seller = this.us.findById(sellerId);
+        Product product = this.ps.findById(productId);
 
         this.repository.save(new Transaction(buyer, seller, product));
         return true;

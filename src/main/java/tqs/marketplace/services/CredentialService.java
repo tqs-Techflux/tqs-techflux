@@ -1,5 +1,6 @@
 package tqs.marketplace.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,7 +11,11 @@ import tqs.marketplace.repositories.CredentialRepository;
 
 @Service
 public class CredentialService implements UserDetailsService {
+
+    @Autowired
     private CredentialRepository repository;
+    @Autowired
+    private UserService us;
 
     protected CredentialService(){}
 
@@ -20,11 +25,15 @@ public class CredentialService implements UserDetailsService {
     }
 
     public boolean saveCredentials() {
+        this.us.saveUsers();
+
         // save a few credentials
-        UserService userService = new UserService();
-        User u1 = userService.findById(0);
-        User u2 = userService.findById(1);
-        User u3 = userService.findById(2);
+        User u1 = this.us.loadUserByEmail("joaoaz@gmail.com");
+        User u2 = this.us.loadUserByEmail("vicorreia@gmail.com");
+        User u3 = this.us.loadUserByEmail("testeves@gmail.com");
+        System.out.println(u1);
+        System.out.println(u2);
+        System.out.println(u3);
 
         this.repository.save(new Credential(u1, "abcdefgh"));
         this.repository.save(new Credential(u2, "12345678"));
@@ -32,8 +41,8 @@ public class CredentialService implements UserDetailsService {
         return true;
     }
 
-    public boolean saveCredential(long userId, String password) {
-        User user = new UserService().findById(userId);
+    public boolean saveCredential(String username, String password) {
+        User user = this.us.loadUserByEmail(username);
         this.repository.save(new Credential(user, password));
         return true;
     }
