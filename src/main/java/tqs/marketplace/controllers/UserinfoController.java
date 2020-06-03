@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import tqs.marketplace.entities.Credential;
+import tqs.marketplace.entities.User;
 import tqs.marketplace.services.CredentialService;
 import tqs.marketplace.services.UserService;
 
@@ -45,8 +46,8 @@ public class UserinfoController {
     }
 
     @PutMapping("/update/details")
-    public ResponseEntity<Boolean> updateUser(@AuthenticationPrincipal Credential user, String newFName, String newLName, String newEmail, String newContact){
-        return new ResponseEntity<Boolean>(userService.updateUser(
+    public ResponseEntity<User> updateUser(@AuthenticationPrincipal Credential user, String newFName, String newLName, String newEmail, String newContact){
+        return new ResponseEntity<User>(userService.updateUser(
                 user.getUsername(),
                 newFName,
                 newLName,
@@ -56,8 +57,8 @@ public class UserinfoController {
     }
 
     @PutMapping("/update/password")
-    public ResponseEntity<Boolean> updatePassword(@AuthenticationPrincipal Credential user, String newPassword){
-        return new ResponseEntity<Boolean>(credentialService.updateCredential(
+    public ResponseEntity<Credential> updatePassword(@AuthenticationPrincipal Credential user, String newPassword){
+        return new ResponseEntity<Credential>(credentialService.updateCredential(
                 user.getUsername(),
                 null,
                 newPassword

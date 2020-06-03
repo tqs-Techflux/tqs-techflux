@@ -50,7 +50,7 @@ public class UserService {
         return b;
     }
 
-    public boolean updateUser(String username, String fName, String lName, String email, String contact) {
+    public User updateUser(String username, String fName, String lName, String email, String contact) {
         User user = this.repository.findByEmail(username);
 
         if (fName != null)
@@ -63,7 +63,7 @@ public class UserService {
         if (contact != null)
             user.setContact(contact);
         this.repository.save(user);
-        return true;
+        return user;
     }
 
     public User loadUserByEmail(String email) throws UsernameNotFoundException {

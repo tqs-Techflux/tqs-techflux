@@ -29,14 +29,14 @@ public class CredentialService implements UserDetailsService {
         return true;
     }
 
-    public boolean updateCredential(String username, String newUsername, String newPassword){
+    public Credential updateCredential(String username, String newUsername, String newPassword){
         Credential user = this.repository.findByUsername(username);
         if (newUsername != null)
             user.setUsername(newUsername);
         if (newPassword != null)
             user.setPassword(newPassword);
         this.repository.save(user);
-        return true;
+        return user;
     }
 
     public UserDetails loadUserDetailsByUsername(String username) throws UsernameNotFoundException {
