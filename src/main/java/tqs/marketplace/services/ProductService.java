@@ -1,5 +1,6 @@
 package tqs.marketplace.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tqs.marketplace.entities.Category;
 import tqs.marketplace.entities.Product;
@@ -10,22 +11,29 @@ import java.util.*;
 
 @Service
 public class ProductService {
+
+    @Autowired
     private ProductRepository repository;
 
-    protected ProductService(){}
+    @Autowired
+    private CategoryService cs;
 
-    public ProductService(ProductRepository repository){
-        this.repository = repository;
-        this.saveProducts();
-    }
+    @Autowired
+    private UserService us;
 
-    public boolean saveProducts() {
-        Category c1 = new CategoryService().findByName("Components");
-        Category c2 = new CategoryService().findByName("Computers");
-        Category c3 = new CategoryService().findByName("Mobile Devices");
 
-        User u1 = new UserService().findById(0);
-        User u2 = new UserService().findById(2);
+    public void saveProducts() {
+        // Temporary Category creation
+        this.cs.saveCategories();
+        // Temporary User creation
+        this.us.saveUsers();
+        Category c1 = this.cs.findByName("Components");
+        Category c2 = this.cs.findByName("Computers");
+        Category c3 = this.cs.findByName("Mobile Devices");
+
+        User u1 = this.us.loadUserByEmail("vicorreia@gmail.com");
+        User u2 = this.us.loadUserByEmail("joaoaz@gmail.com");
+        System.out.println(u1);
 
         // save a few products
         Product p1 = new Product(
@@ -60,7 +68,6 @@ public class ProductService {
         this.repository.save(p3);
         this.repository.save(p4);
 
-        return true;
     }
 
     // without user and category
@@ -71,21 +78,22 @@ public class ProductService {
 
     // with owner and categoryName
     public boolean saveProduct(String name, String description, double price, String picturePath, long ownerId, String catName) {
-        User owner = new UserService().findById(ownerId);
-        Category cat = new CategoryService().findByName(catName);
+        User owner = this.us.findById(ownerId);
+        Category cat = this.cs.findByName(catName);
         this.repository.save(new Product(name, description, price, picturePath, owner, cat));
         return true;
     }
 
     // with owner and categoryId
     public boolean saveProduct(String name, String description, double price, String picturePath, long ownerId, long catId) {
-        User owner = new UserService().findById(ownerId);
-        Category cat = new CategoryService().findById(catId);
+        User owner = this.us.findById(ownerId);
+        Category cat = this.cs.findById(catId);
         this.repository.save(new Product(name, description, price, picturePath, owner, cat));
         return true;
     }
 
-    public boolean updateProduct(Product p, String name, String description, double price, String picturePath) {
+    public boolean updateProduct(long id, String name, String description, double price, String picturePath) {
+        Product p = this.repository.findById(id);
         p.setName(name);
         p.setDescription(description);
         p.setPrice(price);
@@ -95,15 +103,15 @@ public class ProductService {
     }
 
     public List<Product> findAll() {
-        return (List<Product>) repository.findAll();
+        return (List<Product>) this.repository.findAll();
     }
 
     public List<Product> findByName(String partialName){
-        return (List<Product>) repository.findByNameContaining(partialName);
+        return (List<Product>) this.repository.findByNameContaining(partialName);
     }
 
     public Product findById(long id){
-        return (Product) repository.findById(id);
+        return (Product) this.repository.findById(id);
     }
 
 }

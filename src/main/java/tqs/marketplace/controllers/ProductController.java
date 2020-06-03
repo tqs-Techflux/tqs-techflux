@@ -8,7 +8,7 @@ import tqs.marketplace.services.ProductService;
 
 import java.util.List;
 
-@CrossOrigin(origins= "http://localhost:4200")
+@CrossOrigin(origins= "*")
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -17,11 +17,12 @@ public class ProductController {
 
     public ProductController(ProductService productService){
         this.productService = productService;
+        this.productService.saveProducts();
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<Product>> search(){
-        return new ResponseEntity<List<Product>>(productService.findAll(), HttpStatus.OK);
+        return new ResponseEntity<List<Product>>(this.productService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/query/{productName}")
@@ -47,9 +48,9 @@ public class ProductController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Boolean> updateProduct(Product p, String productName, String description, double price, String picturePath){
+    public ResponseEntity<Boolean> updateProduct(long id, String productName, String description, double price, String picturePath){
         return new ResponseEntity<Boolean>(productService.updateProduct(
-                p,
+                id,
                 productName,
                 description,
                 price,

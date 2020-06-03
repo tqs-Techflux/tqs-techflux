@@ -1,5 +1,6 @@
 package tqs.marketplace.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import tqs.marketplace.entities.User;
@@ -10,16 +11,11 @@ import java.util.List;
 
 @Service
 public class UserService {
+
+    @Autowired
     private UserRepository repository;
 
-    protected UserService(){}
-
-    public UserService(UserRepository repository){
-        this.repository = repository;
-        this.saveUsers();
-    }
-
-    public boolean saveUsers() {
+    public void saveUsers() {
         // save a few users
         this.repository.save(new User(
                 "João",
@@ -39,7 +35,6 @@ public class UserService {
                 "testeves@gmail.com",
                 "928888888"
         ));
-        return true;
     }
 
 
@@ -80,6 +75,6 @@ public class UserService {
     }
 
     public User findById(long id){
-        return (User) repository.findById(id);
+        return (User) this.repository.findById(id);
     }
 }

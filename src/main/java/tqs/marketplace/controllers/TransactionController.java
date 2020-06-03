@@ -8,7 +8,7 @@ import tqs.marketplace.services.TransactionService;
 
 import java.util.List;
 
-@CrossOrigin(origins= "http://localhost:4200")
+@CrossOrigin(origins= "*")
 @RestController
 @RequestMapping("/transactions")
 public class TransactionController {

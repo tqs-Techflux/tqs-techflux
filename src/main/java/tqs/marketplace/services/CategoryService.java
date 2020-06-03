@@ -1,5 +1,6 @@
 package tqs.marketplace.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tqs.marketplace.entities.Category;
 import tqs.marketplace.entities.Product;
@@ -10,16 +11,12 @@ import java.util.List;
 
 @Service
 public class CategoryService {
+
+    @Autowired
     private CategoryRepository repository;
+
+    @Autowired
     private ProductRepository productRepository;
-
-    protected CategoryService(){}
-
-    public CategoryService(CategoryRepository repository, ProductRepository productRepository){
-        this.repository = repository;
-        this.productRepository = productRepository;
-        this.saveCategories();
-    }
 
     public boolean saveCategories() {
         // save a few categories
@@ -35,15 +32,15 @@ public class CategoryService {
     }
 
     public List<Category> findAll(){
-        return (List<Category>) repository.findAll();
+        return (List<Category>) this.repository.findAll();
     }
 
     public Category findByName(String categoryName){
-        return (Category) repository.findByName(categoryName);
+        return (Category) this.repository.findByName(categoryName);
     }
 
     public Category findById(long categoryId){
-        return (Category) repository.findById(categoryId);
+        return (Category) this.repository.findById(categoryId);
     }
 
     public List<Product> findByProductsByCatName(String categoryName){

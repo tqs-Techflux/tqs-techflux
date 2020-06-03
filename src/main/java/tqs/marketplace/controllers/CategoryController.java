@@ -9,7 +9,7 @@ import tqs.marketplace.services.CategoryService;
 
 import java.util.List;
 
-@CrossOrigin(origins= "http://localhost:4200")
+@CrossOrigin(origins= "*")
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {

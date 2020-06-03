@@ -15,7 +15,7 @@ import java.util.Map;
 import static java.util.stream.Collectors.toList;
 import static org.springframework.http.ResponseEntity.ok;
 
-@CrossOrigin(origins= "http://localhost:4200")
+@CrossOrigin(origins= "*")
 @RestController()
 public class UserinfoController {
     private CredentialService credentialService;
