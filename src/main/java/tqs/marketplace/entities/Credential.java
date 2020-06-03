@@ -30,6 +30,7 @@ public class Credential implements UserDetails {
         this.id = user.getId();
         this.username = user.getEmail();
         this.password = password;
+        this.user = user;
     }
 
     @Override
