@@ -1,5 +1,6 @@
 package tqs.marketplace.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,7 +19,9 @@ import static org.springframework.http.ResponseEntity.ok;
 @CrossOrigin(origins= "*")
 @RestController()
 public class UserinfoController {
+    @Autowired
     private CredentialService credentialService;
+    @Autowired
     private UserService userService;
 
     protected UserinfoController(){}
@@ -42,9 +45,9 @@ public class UserinfoController {
     }
 
     @PutMapping("/update/details")
-    public ResponseEntity<Boolean> updateUser(@AuthenticationPrincipal String username, String newFName, String newLName, String newEmail, String newContact){
+    public ResponseEntity<Boolean> updateUser(@AuthenticationPrincipal Credential user, String newFName, String newLName, String newEmail, String newContact){
         return new ResponseEntity<Boolean>(userService.updateUser(
-                username,
+                user.getUsername(),
                 newFName,
                 newLName,
                 newEmail,
@@ -53,9 +56,9 @@ public class UserinfoController {
     }
 
     @PutMapping("/update/password")
-    public ResponseEntity<Boolean> updatePassword(@AuthenticationPrincipal String username, String newPassword){
+    public ResponseEntity<Boolean> updatePassword(@AuthenticationPrincipal Credential user, String newPassword){
         return new ResponseEntity<Boolean>(credentialService.updateCredential(
-                username,
+                user.getUsername(),
                 null,
                 newPassword
         ), HttpStatus.OK);
