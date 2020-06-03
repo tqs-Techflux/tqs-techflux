@@ -19,30 +19,28 @@ public class UserService {
 
     public void saveUsers() {
         // save a few users
-        this.repository.save(new User(
-                "João",
+        saveUser("João",
                 "Azambuja",
                 "joaoaz@gmail.com",
-                "969999999"
-        ));
-        this.repository.save(new User(
+                "969999999",
+                "abcdefgh"
+        );
+        saveUser(
                 "Vicente",
                 "Correia",
                 "vicorreia@gmail.com",
-                "966666666"
-        ));
-        this.repository.save(new User(
+                "966666666",
+                "12345678"
+        );
+        saveUser(
                 "Tomás",
                 "Esteves",
                 "testeves@gmail.com",
-                "928888888"
-        ));
-        this.cs.saveCredential("joaoaz@gmail.com", "abdcefgh");
-        this.cs.saveCredential("vicorreia@gmail.com", "12345678");
-        this.cs.saveCredential("testeves@gmail.com", "123123123");
+                "928888888",
+                "123123123"
+        );
 
     }
-
 
     public boolean saveUser(String fName, String lName, String email, String contact, String password) {
         User u = new User(fName, lName, email, contact);

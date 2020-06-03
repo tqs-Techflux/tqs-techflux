@@ -21,24 +21,6 @@ public class CredentialService implements UserDetailsService {
 
     public CredentialService(CredentialRepository repository){
         this.repository = repository;
-        this.saveCredentials();
-    }
-
-    public boolean saveCredentials() {
-        this.us.saveUsers();
-
-        // save a few credentials
-        User u1 = this.us.loadUserByEmail("joaoaz@gmail.com");
-        User u2 = this.us.loadUserByEmail("vicorreia@gmail.com");
-        User u3 = this.us.loadUserByEmail("testeves@gmail.com");
-        System.out.println(u1);
-        System.out.println(u2);
-        System.out.println(u3);
-
-        this.repository.save(new Credential(u1, "abcdefgh"));
-        this.repository.save(new Credential(u2, "12345678"));
-        this.repository.save(new Credential(u3, "123123123"));
-        return true;
     }
 
     public boolean saveCredential(String username, String password) {

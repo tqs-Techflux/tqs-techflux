@@ -31,10 +31,12 @@ public class ProductService {
         Category c2 = this.cs.findByName("Computers");
         Category c3 = this.cs.findByName("Mobile Devices");
 
-        User u1 = this.us.loadUserByEmail("vicorreia@gmail.com");
-        User u2 = this.us.loadUserByEmail("testeves@gmail.com");
-        System.out.println("(Product) u1" + u1);
-        System.out.println("(Product) u2" + u2);
+        User u1 = this.us.loadUserByEmail("joaoaz@gmail.com");
+        User u2 = this.us.loadUserByEmail("vicorreia@gmail.com");
+        User u3 = this.us.loadUserByEmail("testeves@gmail.com");
+        System.out.println("(Product) u1: " + u1);
+        System.out.println("(Product) u2: " + u2);
+        System.out.println("(Product) u2: " + u3);
 
         // save a few products
         Product p1 = new Product(
@@ -59,24 +61,14 @@ public class ProductService {
                 129.99,
                 "https://i.imgur.com/gU1UV63.jpg");
 
-        p1.setOwner(u1); p1.setCategory(c1);
-        p2.setOwner(u2); p2.setCategory(c1);
-        p3.setOwner(u1); p3.setCategory(c1);
-        p4.setOwner(u2); p4.setCategory(c1);
+        p1.setOwner(u1); p1.setCategory(c1); this.repository.save(p1);
+        p2.setOwner(u3); p2.setCategory(c1); this.repository.save(p2);
+        p3.setOwner(u1); p3.setCategory(c1); this.repository.save(p3);
+        p4.setOwner(u3); p4.setCategory(c1); this.repository.save(p4);
 
-        this.repository.save(p1);
-        this.repository.save(p2);
-        this.repository.save(p3);
-        this.repository.save(p4);
-
-        //this.ts.saveTransactions();
+        this.ts.saveTransaction(u2.getId(), u1.getId(), p1.getId());
     }
 
-    // without user and category
-    public boolean saveProduct(String name, String description, double price, String picturePath) {
-        this.repository.save(new Product(name, description, price, picturePath));
-        return true;
-    }
 
     // with owner and categoryName
     public boolean saveProduct(String name, String description, double price, String picturePath, long ownerId, String catName) {

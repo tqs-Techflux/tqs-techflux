@@ -24,25 +24,6 @@ public class TransactionService {
 
     public TransactionService(TransactionRepository repository){
         this.repository = repository;
-        this.saveTransactions();
-    }
-
-    public boolean saveTransactions(){
-        // Temporary Product creation
-        this.ps.saveProducts();
-        // Temporary User creation
-        this.us.saveUsers();
-
-        User buyer1 = this.us.loadUserByEmail("vicorreia@gmail.com");
-        User seller1 = this.us.loadUserByEmail("joaoaz@gmail.com");
-        Product p1 = this.ps.findById(0);
-        System.out.println("(Transaction) buyer1" + buyer1);
-        System.out.println("(Transaction) seller1" + seller1);
-
-
-        Transaction t1 = new Transaction(buyer1, seller1, p1);
-        this.repository.save(t1);
-        return true;
     }
 
     public boolean saveTransaction(long buyerId, long sellerId, long productId){
