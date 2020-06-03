@@ -36,7 +36,7 @@ public class ProductService {
         User u3 = this.us.loadUserByEmail("testeves@gmail.com");
         System.out.println("(Product) u1: " + u1);
         System.out.println("(Product) u2: " + u2);
-        System.out.println("(Product) u2: " + u3);
+        System.out.println("(Product) u3: " + u3);
 
         // save a few products
         Product p1 = new Product(
