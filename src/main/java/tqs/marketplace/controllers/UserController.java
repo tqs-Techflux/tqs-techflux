@@ -1,5 +1,6 @@
 package tqs.marketplace.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +14,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UserController {
+    @Autowired
     private UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping("/{userPartialName}")
     public ResponseEntity<List<User>> searchByName(@PathVariable("userPartialName") String userPartialName) {

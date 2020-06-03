@@ -25,13 +25,6 @@ public class UserinfoController {
     @Autowired
     private UserService userService;
 
-    protected UserinfoController(){}
-
-    public UserinfoController(CredentialService credentialService, UserService userService){
-        this.credentialService = credentialService;
-        this.userService = userService;
-    }
-
     @GetMapping("/me")
     public ResponseEntity currentUser(@AuthenticationPrincipal Credential user){
         Map<Object, Object> model = new HashMap<>();
@@ -66,7 +59,7 @@ public class UserinfoController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Boolean> newUser(@AuthenticationPrincipal Credential user, String fName, String lName, String email, String contact, String password){
+    public ResponseEntity<Boolean> newUser(String fName, String lName, String email, String contact, String password){
         return new ResponseEntity<Boolean>(userService.saveUser(
                 fName,
                 lName,

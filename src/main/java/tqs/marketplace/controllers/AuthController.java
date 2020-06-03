@@ -24,10 +24,6 @@ public class AuthController {
     @Autowired
     private CredentialService credentialService;
 
-    public AuthController(CredentialService credentialService){
-        this.credentialService = credentialService;
-    }
-
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         try {

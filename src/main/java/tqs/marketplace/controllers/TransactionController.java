@@ -1,5 +1,6 @@
 package tqs.marketplace.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +13,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/transactions")
 public class TransactionController {
+    @Autowired
     private TransactionService transactionService;
 
-    public TransactionController(TransactionService transactionService){
-        this.transactionService = transactionService;
-    }
 
     @GetMapping("/{userId}/all")
     public ResponseEntity<List<Transaction>> searchByUser(@PathVariable("userId") long id){
