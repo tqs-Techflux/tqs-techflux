@@ -20,10 +20,16 @@ import static org.springframework.http.ResponseEntity.ok;
 @CrossOrigin(origins= "*")
 @RestController()
 public class UserinfoController {
-    @Autowired
+
     private CredentialService credentialService;
-    @Autowired
+
     private UserService userService;
+
+    @Autowired
+    public UserinfoController(UserService userService,CredentialService credentialService){
+        this.credentialService = credentialService;
+        this.userService = userService;
+    }
 
     @GetMapping("/me")
     public ResponseEntity currentUser(@AuthenticationPrincipal Credential user){
