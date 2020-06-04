@@ -18,15 +18,15 @@ class CategoryServiceTest {
     void CreateAndSaveCategoriesTest() {
         String testCategory = "Mobile";
         service.createCategory(testCategory);
-        assertEquals(testCategory, service.getCategory(testCategory).getCategoryName());
+        assertEquals(testCategory, service.findByName(testCategory).getName());
     }
 
     @Test
     void SaveCategoriesTest(){
         service.saveCategories();
-        assertEquals("Components", service.getCategory("Components").getCategoryName());
-        assertEquals("Computers", service.getCategory("Computers").getCategoryName());
-        assertEquals("Mobile Devices", service.getCategory("Mobile Devices").getCategoryName());
+        assertEquals("Components", service.findByName("Components").getName());
+        assertEquals("Computers", service.findByName("Computers").getName());
+        assertEquals("Computers", service.findByName("Computers").getName());
     }
 
 
@@ -35,7 +35,7 @@ class CategoryServiceTest {
         String categoryNameTest = "TV";
         Category categoryTest = new Category(categoryNameTest);
         service.createCategory(categoryNameTest);
-        assertTrue(service.getAll().contains(categoryTest));
+        assertTrue(service.findAll().contains(categoryTest));
     }
 
     @Test
