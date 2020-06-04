@@ -6,33 +6,32 @@ import javax.persistence.*;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long categoryId;
-    @Column(name="name")
-    private String categoryName;
+    private long id;
+    private String name;
 
     protected Category(){ }
 
     public Category(String categoryName){
-        this.categoryName = categoryName;
+        this.name = categoryName;
     }
 
-    public long getCategoryId() {
-        return categoryId;
+    public long getId() {
+        return id;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getName() {
+        return name;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "Category{" +
-                "categoryID=" + categoryId +
-                ", categoryName='" + categoryName + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

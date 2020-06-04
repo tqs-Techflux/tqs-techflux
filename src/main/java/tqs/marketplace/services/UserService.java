@@ -1,7 +1,6 @@
 package tqs.marketplace.services;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import tqs.marketplace.entities.User;
@@ -11,78 +10,74 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
+
+    @Autowired
     private UserRepository repository;
+    @Autowired
+    private CredentialService cs;
 
-    public UserService(UserRepository repository){
-        this.repository = repository;
-        this.saveUsers();
-    }
-
-    public boolean saveUsers() {
+    public void saveUsers() {
         // save a few users
-        this.repository.save(new User(
-                "João",
+        saveUser("João",
                 "Azambuja",
                 "joaoaz@gmail.com",
                 "969999999",
-                "abcdefgh"));
-        this.repository.save(new User(
+                "abcdefgh"
+        );
+        saveUser(
                 "Vicente",
                 "Correia",
                 "vicorreia@gmail.com",
                 "966666666",
-                "12345678"));
-        return true;
-    }
+                "12345678"
+        );
+        saveUser(
+                "Tomás",
+                "Esteves",
+                "testeves@gmail.com",
+                "928888888",
+                "123123123"
+        );
 
+    }
 
     public boolean saveUser(String fName, String lName, String email, String contact, String password) {
-        this.repository.save(new User(fName, lName, email, contact, password));
-        return true;
+        User u = new User(fName, lName, email, contact);
+        this.repository.save(u);
+
+        boolean b = this.cs.saveCredential(email, password);
+        return b;
     }
 
-    public boolean saveUser(String email, String password) {
-        this.repository.save(new User(email, password));
-        return true;
-    }
+    public User updateUser(String username, String fName, String lName, String email, String contact) {
+        User user = this.repository.findByEmail(username);
 
-
-    public List<User> findByName(String partialName){
-        List<User> retList = new ArrayList<User>();
-
-        // fetch a list of users by partialName in firstName
-        for (User user : repository.findByFirstNameContaining(partialName)) {
-            retList.add(user);
-            System.out.println(user.toString());
-        }
-        // fetch a list of users by partialName in lastName
-        for (User user : repository.findByLastNameContaining(partialName)) {
-            retList.add(user);
-            System.out.println(user.toString());
-        }
-
-        return retList;
-    }
-
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = repository.findByEmail(email);
-
-        System.out.println(user.toString());
+        if (fName != null)
+            user.setFirstName(fName);
+        if (lName != null)
+            user.setLastName(lName);
+        if (email != null)
+            user.setEmail(email);
+            this.cs.updateCredential(username, email, null);
+        if (contact != null)
+            user.setContact(contact);
+        this.repository.save(user);
         return user;
     }
 
     public User loadUserByEmail(String email) throws UsernameNotFoundException {
-        User user = repository.findByEmail(email);
+        return (User) repository.findByEmail(email);
+    }
 
-        System.out.println(user.toString());
-        return user;
+    public List<User> findByName(String partialName){
+        List<User> retList = new ArrayList<User>();
+        retList.addAll((List<User>) repository.findByFirstNameContaining(partialName));
+        retList.addAll((List<User>) repository.findByLastNameContaining(partialName));
+        return retList;
     }
 
     public User findById(long id){
-        // fetch an individual user by ID
-        User user = repository.findById(id);
-        System.out.println(user.toString());
-        return user;
+        return (User) this.repository.findById(id);
     }
 }

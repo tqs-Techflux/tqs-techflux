@@ -1,57 +1,75 @@
 package tqs.marketplace.entities;
 
+import javax.persistence.*;
+
+@Entity
 public class Transaction {
-    private int transactionID;
-    private int buyerID;
-    private int sellerID;
-    private int productID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    @ManyToOne
+    private User buyer;
+    @ManyToOne
+    private User seller;
+    @OneToOne
+    private Product product;
+    private String status;
 
-    public Transaction(int transactionID, int buyerID, int sellerID, int productID){
-        this.transactionID = transactionID;
-        this.buyerID = buyerID;
-        this.sellerID = sellerID;
-        this.productID = productID;
+    protected Transaction(){}
+
+    public Transaction(User buyer, User seller, Product product){
+        this.buyer = buyer;
+        this.seller = seller;
+        this.product = product;
     }
 
-    public int getTransactionID() {
-        return transactionID;
+    public long getId() {
+        return id;
     }
 
-    public void setTransactionID(int transactionID) {
-        this.transactionID = transactionID;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getBuyerID() {
-        return buyerID;
+    public User getBuyer() {
+        return buyer;
     }
 
-    public void setBuyerID(int buyerID) {
-        this.buyerID = buyerID;
+    public void setBuyer(User buyer) {
+        this.buyer = buyer;
     }
 
-    public int getSellerID() {
-        return sellerID;
+    public User getSeller() {
+        return seller;
     }
 
-    public void setSellerID(int sellerID) {
-        this.sellerID = sellerID;
+    public void setSeller(User seller) {
+        this.seller = seller;
     }
 
-    public int getProductID() {
-        return productID;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductID(int productID) {
-        this.productID = productID;
+    public void setProduct(Product productID) {
+        this.product = product;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
         return "Transaction{" +
-                "transactionID=" + transactionID +
-                ", buyerID=" + buyerID +
-                ", sellerID=" + sellerID +
-                ", productID=" + productID +
+                "id=" + id +
+                ", buyer=" + buyer +
+                ", seller=" + seller +
+                ", product=" + product +
                 '}';
     }
 }

@@ -11,18 +11,18 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import tqs.marketplace.services.UserService;
+import tqs.marketplace.services.CredentialService;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private UserService userService;
+    private CredentialService credentialService;
     @Autowired
     private JwtTokenFilter jwtTokenFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService);
+        auth.userDetailsService(credentialService);
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -34,7 +34,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/auth/authenticate").permitAll()
                 .antMatchers("/products/*").permitAll()
-                .antMatchers("/categories/*").permitAll().
+                .antMatchers("/products/*/*").permitAll()
+                .antMatchers("/categories/*").permitAll()
+                .antMatchers("/new").permitAll()
+                .antMatchers("/image/*").permitAll().
                 anyRequest().authenticated().and().
                 exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
