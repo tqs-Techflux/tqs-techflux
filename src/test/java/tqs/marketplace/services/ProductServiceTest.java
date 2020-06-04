@@ -22,8 +22,8 @@ class ProductServiceTest {
         String testName = "Prototype Product";
         String testDescription = "Prototype Product for testing";
         double testPrice = 99.99;
-        Product testProduct = new Product(testName, testDescription, testPrice);
-        service.saveProduct(testName, testDescription, testPrice);
+        Product testProduct = new Product(testName, testDescription, testPrice,null);
+        service.saveProduct(testProduct);
         assertTrue(service.findByName(testName).contains(testProduct));
         assertTrue(service.findAll().size() == 1);
     }
@@ -35,7 +35,7 @@ class ProductServiceTest {
         double testPrice = 99.99;
         String testPicPath = "https://lunawood.com/wp-content/uploads/2018/02/placeholder-image.png";
         Product testProduct = new Product(testName, testDescription, testPrice, testPicPath);
-        service.saveProduct(testName, testDescription, testPrice, testPicPath);
+        service.saveProduct(testProduct);
         assertTrue(service.findByName(testName).contains(testProduct));
         assertTrue(service.findAll().size() == 1);
     }
@@ -46,8 +46,8 @@ class ProductServiceTest {
         String testDescription = "Prototype Product for testing";
         double testPrice = 99.99;
         String testPicPath = "https://lunawood.com/wp-content/uploads/2018/02/placeholder-image.png";
-        service.saveProduct(testName, testDescription, testPrice, testPicPath);
-        assertEquals(0, service.findById(1).getId());
+        service.saveProduct(testName, testDescription, testPrice, testPicPath,1,1);
+        assertEquals(1, service.findById(1).getId());
     }
 
     @Test
@@ -56,8 +56,8 @@ class ProductServiceTest {
         String testDescription = "Prototype Product for testing";
         double testPrice = 99.99;
         String testPicPath = "https://lunawood.com/wp-content/uploads/2018/02/placeholder-image.png";
-        service.saveProduct(testName, testDescription, testPrice, testPicPath);
-        service.saveProduct(testName, testDescription, testPrice, testPicPath);
+        service.saveProduct(testName, testDescription, testPrice, testPicPath,1,1);
+        service.saveProduct(testName, testDescription, testPrice, testPicPath,1,1);
         assertTrue(service.findAll().size() < 2);
     }
 
