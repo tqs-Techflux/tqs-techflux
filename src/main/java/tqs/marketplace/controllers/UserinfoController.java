@@ -66,6 +66,7 @@ public class UserinfoController {
 
     @PostMapping("/new")
     public ResponseEntity<Boolean> newUser(String fName, String lName, String email, String contact, String password){
+        System.out.println(fName + lName + email);
         return new ResponseEntity<Boolean>(userService.saveUser(
                 fName,
                 lName,
