@@ -21,9 +21,10 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Sonar with Maven
       run: mvn verify sonar:sonar 
-      
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
