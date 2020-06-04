@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import tqs.marketplace.auth.AuthenticationRequest;
 import tqs.marketplace.auth.AuthenticationResponse;
 import tqs.marketplace.auth.JwtTokenProvider;
-import tqs.marketplace.entities.User;
-import tqs.marketplace.services.UserService;
+import tqs.marketplace.entities.Credential;
+import tqs.marketplace.services.CredentialService;
 
-@CrossOrigin(origins= "http://localhost:4200")
+@CrossOrigin(origins= "*")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -22,11 +22,7 @@ public class AuthController {
     @Autowired
     private JwtTokenProvider jwtTokenUtil;
     @Autowired
-    private UserService userService;
-
-    public AuthController(UserService userservice){
-        this.userService = userservice;
-    }
+    private CredentialService credentialService;
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
@@ -37,9 +33,10 @@ public class AuthController {
         } catch (BadCredentialsException e) {
             throw new Exception("Incorrect username or password", e);
         }
-        final UserDetails userDetails = userService
-                .loadUserByUsername(authenticationRequest.getUsername());
-        final User user = userService.loadUserByEmail(authenticationRequest.getUsername());
+        final UserDetails userDetails = credentialService
+                .loadUserDetailsByUsername(authenticationRequest.getUsername());
+        final Credential user = credentialService.
+                loadUserByUsername(authenticationRequest.getUsername());
         final String jwt = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new AuthenticationResponse(jwt,user.getId()));
     }
