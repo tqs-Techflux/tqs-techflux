@@ -1,5 +1,7 @@
 package tqs.marketplace.entities;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 
 @Entity

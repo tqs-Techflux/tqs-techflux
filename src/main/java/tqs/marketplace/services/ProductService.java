@@ -2,11 +2,16 @@ package tqs.marketplace.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import tqs.marketplace.entities.Category;
 import tqs.marketplace.entities.Product;
 import tqs.marketplace.entities.User;
 import tqs.marketplace.repositories.ProductRepository;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 @Service
@@ -21,7 +26,14 @@ public class ProductService {
     @Autowired
     private TransactionService ts;
 
+    private Path root = Paths.get("src/main/resources/pictures");
+
     public void saveProducts() {
+        try {
+            Files.createDirectory(root);
+        } catch (IOException e) {
+            System.out.println("Picture path already exists");
+        }
         // Temporary Category creation
         this.cs.saveCategories();
         // Temporary User creation
@@ -34,9 +46,6 @@ public class ProductService {
         User u1 = this.us.loadUserByEmail("joaoaz@gmail.com");
         User u2 = this.us.loadUserByEmail("vicorreia@gmail.com");
         User u3 = this.us.loadUserByEmail("testeves@gmail.com");
-        System.out.println("(Product) u1: " + u1);
-        System.out.println("(Product) u2: " + u2);
-        System.out.println("(Product) u3: " + u3);
 
         // save a few products
         Product p1 = new Product(
@@ -69,13 +78,24 @@ public class ProductService {
         this.ts.saveTransaction(u2.getId(), u1.getId(), p1.getId());
     }
 
+    public String saveFile(MultipartFile file, String name){
+        try {
+            Files.copy(file.getInputStream(), this.root.resolve(name));
+            return this.root.resolve(name).toString();
+        } catch (IOException e) {
+            return null;
+        }
+    }
 
     // with owner and categoryName
-    public boolean saveProduct(String name, String description, double price, String picturePath, long ownerId, String catName) {
+    public Product saveProduct(String name, String description, double price, String picturePath, long ownerId, String catName) {
         User owner = this.us.findById(ownerId);
         Category cat = this.cs.findByName(catName);
-        this.repository.save(new Product(name, description, price, picturePath, owner, cat));
-        return true;
+        return this.repository.save(new Product(name, description, price, picturePath, owner, cat));
+    }
+
+    public Product saveProduct(Product p){
+        return this.repository.save(p);
     }
 
     // with owner and categoryId
@@ -97,7 +117,11 @@ public class ProductService {
     }
 
     public List<Product> findAll() {
-        return (List<Product>) this.repository.findAll();
+        List <Product> prods = (List<Product>) this.repository.findAll();
+        for(Product p : prods){
+
+        }
+        return prods;
     }
 
     public List<Product> findByName(String partialName){
