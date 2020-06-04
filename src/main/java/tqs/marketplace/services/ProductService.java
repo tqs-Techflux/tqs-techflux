@@ -83,7 +83,6 @@ public class ProductService {
             Files.copy(file.getInputStream(), this.root.resolve(name));
             return this.root.resolve(name).toString();
         } catch (IOException e) {
-            e.printStackTrace();
             return null;
         }
     }
