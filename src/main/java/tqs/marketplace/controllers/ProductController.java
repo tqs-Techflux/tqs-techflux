@@ -27,9 +27,6 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    private ServletContext servletContext;
-
-    @Autowired
     private ResourceLoader resourceLoader;
 
     private ProductService productService;
