@@ -169,6 +169,8 @@
            <configuration>
              <includes>
                   <include>**/*Tests.java</include>
+                  <include>**/*Test.java</include>
+                  <include>**/tqs/marketplace/services/CategoryServiceTest.java</include>
            </includes>
            </configuration>
          </plugin>
