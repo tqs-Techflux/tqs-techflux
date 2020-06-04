@@ -16,6 +16,14 @@
 
     <properties>
         <java.version>1.8</java.version>
+             
+
+           <sonar.projectKey>tqs-Techflux_tqs-techflux</sonar.projectKey>
+           <sonar.organization>tqs-techflux</sonar.organization>
+           <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+           <sonar.login>9d2e2290638c5138197055473c5f9aba76de548c</sonar.login>
+
+    
     </properties>
 
     <dependencies>
