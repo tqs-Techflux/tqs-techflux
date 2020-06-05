@@ -44,12 +44,16 @@ class CategoryServiceTest {
 
     @Test
     void AttemptToAddAnAlreadyExistingCategoryTest(){
-        fail();
+        service.saveCategories();
+        assertEquals("Components", service.findByName("Components").getName());
+        assertEquals("Computers", service.findByName("Computers").getName());
+        assertEquals("Computers", service.findByName("Computers").getName());
+        assertEquals(2, service.findAll().size());
     }
 
     @Test
     void GetCategoryWhenNoCategoriesExistTest(){
-        fail();
+        assertEquals(0, service.findAll().size());
     }
 
 }
