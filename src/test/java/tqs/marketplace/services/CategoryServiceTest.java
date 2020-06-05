@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CategoryServiceTest {
 
-    @Autowired
+    @MockBean
     private CategoryService service;
 
     @BeforeEach
@@ -22,16 +22,16 @@ class CategoryServiceTest {
     @Test
     void CreateAndSaveCategoriesTest() {
         String testCategory = "Mobile";
-        service.createCategory(testCategory);
-        assertEquals(testCategory, service.findByName(testCategory).getName());
+        this.service.createCategory(testCategory);
+        assertEquals(testCategory, this.service.findByName(testCategory).getName());
     }
 
     @Test
     void SaveCategoriesTest(){
-        service.saveCategories();
-        assertEquals("Components", service.findByName("Components").getName());
-        assertEquals("Computers", service.findByName("Computers").getName());
-        assertEquals("Computers", service.findByName("Computers").getName());
+        this.service.saveCategories();
+        assertEquals("Components", this.service.findByName("Components").getName());
+        assertEquals("Computers", this.service.findByName("Computers").getName());
+        assertEquals("Computers", this.service.findByName("Computers").getName());
     }
 
 
