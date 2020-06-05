@@ -11,6 +11,7 @@ import tqs.marketplace.repositories.ProductRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@RunWith(SpringRunner.class)
 class ProductServiceTest {
 
 
