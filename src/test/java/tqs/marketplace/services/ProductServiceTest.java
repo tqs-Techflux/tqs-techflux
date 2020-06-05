@@ -12,19 +12,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class ProductServiceTest {
 
 
-    @Autowired
+    @MockBean
     private ProductRepository repository;
-    @Autowired
+    @MockBean
     private CategoryService cs;
-    @Autowired
+    @MockBean
     private UserService us;
-    @Autowired
+    @MockBean
     private TransactionService ts;
 
-    @Autowired
+    @MockBean
     private ProductService service;
 
     @BeforeEach
