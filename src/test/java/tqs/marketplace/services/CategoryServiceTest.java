@@ -13,6 +13,10 @@ class CategoryServiceTest {
     @MockBean
     private CategoryService service;
 
+    @BeforeEach
+    void setUp(){
+        this.service = new CategoryService();
+    }
 
     @Test
     void CreateAndSaveCategoriesTest() {

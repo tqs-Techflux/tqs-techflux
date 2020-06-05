@@ -2,15 +2,35 @@ package tqs.marketplace.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import tqs.marketplace.entities.Category;
 import tqs.marketplace.entities.Product;
+import tqs.marketplace.entities.User;
+import tqs.marketplace.repositories.ProductRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductServiceTest {
 
+
+    @MockBean
+    private ProductRepository repository;
+    @MockBean
+    private CategoryService cs;
+    @MockBean
+    private UserService us;
+    @MockBean
+    private TransactionService ts;
+
     @MockBean
     private ProductService service;
+
+    @BeforeEach
+    void setUp(){
+        this.service = new ProductService();
+    }
+
 
     @Test
     void ProductListIsEmptyAtStartTest(){
@@ -18,27 +38,55 @@ class ProductServiceTest {
     }
 
     @Test
-    void CreateAndSaveNewProductWithoutPicturePathTest(){
-        String testName = "Prototype Product";
-        String testDescription = "Prototype Product for testing";
-        double testPrice = 99.99;
-        Product testProduct = new Product(testName, testDescription, testPrice,null);
-        service.saveProduct(testProduct);
-        assertTrue(service.findByName(testName).contains(testProduct));
-        assertTrue(service.findAll().size() == 1);
+    void CreateAndSaveNewProductTest(){
+        service.saveProducts();
+        assertFalse(service.findAll().isEmpty());
     }
 
+
     @Test
-    void CreateAndSaveNewProductWithPicturePathTest(){
+    void CreateAndSaveNewProductWithOwnerAndCategoryNameTest(){
         String testName = "Prototype Product";
         String testDescription = "Prototype Product for testing";
         double testPrice = 99.99;
         String testPicPath = "https://lunawood.com/wp-content/uploads/2018/02/placeholder-image.png";
-        Product testProduct = new Product(testName, testDescription, testPrice, testPicPath);
+        User testOwner = us.loadUserByEmail("joaoaz@gmail.com");
+        Category testCategory = cs.findByName("Components");
+        Product testProduct = new Product(testName, testDescription, testPrice, testPicPath, testOwner, testCategory);
         service.saveProduct(testProduct);
         assertTrue(service.findByName(testName).contains(testProduct));
-        assertTrue(service.findAll().size() == 1);
+        assertTrue(service.findAll().size() >= 1);
     }
+
+    @Test
+    void CreateAndSaveNewProductWithOwnerAndCategoryIDTest(){
+        String testName = "Prototype Product";
+        String testDescription = "Prototype Product for testing";
+        double testPrice = 99.99;
+        String testPicPath = "https://lunawood.com/wp-content/uploads/2018/02/placeholder-image.png";
+        User testOwner = us.loadUserByEmail("joaoaz@gmail.com");
+        Category testCategory = cs.findById(0);
+        Product testProduct = new Product(testName, testDescription, testPrice, testPicPath, testOwner, testCategory);
+        service.saveProduct(testProduct);
+        assertTrue(service.findByName(testName).contains(testProduct));
+        assertTrue(service.findAll().size() >= 1);
+    }
+
+
+    @Test
+    void findProductByNameTest(){
+        String testName = "Prototype Product";
+        String testDescription = "Prototype Product for testing";
+        double testPrice = 99.99;
+        String testPicPath = "https://lunawood.com/wp-content/uploads/2018/02/placeholder-image.png";
+        User testOwner = us.loadUserByEmail("joaoaz@gmail.com");
+        Category testCategory = cs.findById(0);
+        Product testProduct = new Product(testName, testDescription, testPrice, testPicPath, testOwner, testCategory);
+        service.saveProduct(testProduct);
+
+        assertTrue( service.findByName(testName).contains(testProduct));
+    }
+
 
     @Test
     void findProductByIDTest(){
@@ -46,19 +94,12 @@ class ProductServiceTest {
         String testDescription = "Prototype Product for testing";
         double testPrice = 99.99;
         String testPicPath = "https://lunawood.com/wp-content/uploads/2018/02/placeholder-image.png";
-        service.saveProduct(testName, testDescription, testPrice, testPicPath,1,1);
-        assertEquals(1, service.findById(1).getId());
-    }
+        User testOwner = us.loadUserByEmail("joaoaz@gmail.com");
+        Category testCategory = cs.findById(0);
+        Product testProduct = new Product(testName, testDescription, testPrice, testPicPath, testOwner, testCategory);
+        service.saveProduct(testProduct);
 
-    @Test
-    void addingTwoEqualProductsTest(){
-        String testName = "Prototype Product";
-        String testDescription = "Prototype Product for testing";
-        double testPrice = 99.99;
-        String testPicPath = "https://lunawood.com/wp-content/uploads/2018/02/placeholder-image.png";
-        service.saveProduct(testName, testDescription, testPrice, testPicPath,1,1);
-        service.saveProduct(testName, testDescription, testPrice, testPicPath,1,1);
-        assertTrue(service.findAll().size() < 2);
+        assertEquals(0, service.findById(0).getId());
     }
 
 
