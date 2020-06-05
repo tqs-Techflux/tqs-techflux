@@ -8,6 +8,7 @@ import tqs.marketplace.entities.Category;
 import tqs.marketplace.entities.Product;
 import tqs.marketplace.entities.User;
 import tqs.marketplace.repositories.ProductRepository;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
