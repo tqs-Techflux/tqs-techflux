@@ -6,8 +6,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class MarketplaceApplicationTests {
 
+    @Autowired
+	private ProductController controller;
+    
     @Test
     void contextLoads() {
+        assertThat(controller).isNotNull();
     }
 
 }
