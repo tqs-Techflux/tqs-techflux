@@ -5,12 +5,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import tqs.marketplace.entities.Category;
 import tqs.marketplace.repositories.CategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CategoryServiceTest {
 
-    @MockBean
+    @Autowired
     private CategoryService service;
 
     @BeforeEach
